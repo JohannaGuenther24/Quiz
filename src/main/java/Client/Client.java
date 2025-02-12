@@ -80,7 +80,7 @@ public class Client {
                     "\nB: " + answerTwo +
                     "\nC: " + answerThree +
                     "\nD: " + answerFour +
-                    "\nWaehle A, B, C oder D");
+                    "\nWaehle A, B, C oder D und E");
 
             String choose = sc.next();
 
