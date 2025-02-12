@@ -1,19 +1,21 @@
 package Client;
 
-import Classes.Question;
-import Services.QuestionService;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Client {
-    public static void startGame() {
+    public static void startGame() throws IOException, InterruptedException {
         Random random = new Random();
         int randomValueAnswer;
         Scanner sc = new Scanner(System.in);
-        List<Question> questions = new ArrayList<>();
+        JSONArray jsonArray = new JSONArray();
+        JSONObject jsonObject;
         List<String> answers = new ArrayList<>();
         int max;
         int counterQuestion = 1;
@@ -23,6 +25,7 @@ public class Client {
         String answerTwo;
         String answerThree;
         String answerFour;
+        Requests requests = new Requests();
 
         while (!check) {
             System.out.println("""
@@ -32,16 +35,15 @@ public class Client {
                     3 - Schwer
                     0 - Gemischte Fragen
                     """);
-
             int answer = sc.nextInt();
 
             if (answer > 0 && answer <= 3) {
-                questions = QuestionService.getAllQuestionsByDifficultyId(answer);
-                maxQuestions = QuestionService.getAllQuestionsByDifficultyId(answer).size();
+                jsonArray = requests.getQuestionByDiffucultyId(answer);
+                maxQuestions = jsonArray.length();
                 check = true;
             } else if (answer == 0) {
-                questions = QuestionService.getAllQuestions();
-                maxQuestions = QuestionService.getAllQuestions().size();
+                jsonArray = requests.getQuestions();
+                maxQuestions = jsonArray.length();
                 check = true;
             } else {
                 System.out.println("Error: Falsche Eingabe!");
@@ -49,17 +51,19 @@ public class Client {
         }
 
 
+
         while (counterQuestion <= maxQuestions) {
-            max = questions.size();
+
+            max = jsonArray.length();
             int randomValueQuestion = random.nextInt(0, max);
-            Question question = questions.get(randomValueQuestion);
+            jsonObject = jsonArray.getJSONObject(randomValueQuestion);
 
-            answers.add(question.getCorrectAnswer());
-            answers.add(question.getWrongAnswerA());
-            answers.add(question.getWrongAnswerB());
-            answers.add(question.getWrongAnswerC());
+            answers.add(jsonObject.getString("correctAnswer"));
+            answers.add(jsonObject.getString("wrongAnswerA"));
+            answers.add(jsonObject.getString("wrongAnswerB"));
+            answers.add(jsonObject.getString("wrongAnswerC"));
 
-            System.out.println("Frage: " + question.getQuestion());
+            System.out.println("Frage: " + jsonObject.getString("question"));
 
             randomValueAnswer = random.nextInt(0, 4);
             answerOne = answers.get(randomValueAnswer);
@@ -72,7 +76,6 @@ public class Client {
             answers.remove(randomValueAnswer);
             randomValueAnswer = random.nextInt(0, 1);
             answerFour = answers.get(randomValueAnswer);
-
             answers.clear();
 
 
@@ -80,27 +83,25 @@ public class Client {
                     "\nB: " + answerTwo +
                     "\nC: " + answerThree +
                     "\nD: " + answerFour +
-                    "\nWaehle A, B, C oder D und E");
+                    "\nWaehle A, B, C oder D");
 
             String choose = sc.next();
 
             switch (choose.toUpperCase()) {
                 case "A":
-                    evaluation(answerOne, question.getCorrectAnswer());
+                    evaluation(answerOne, jsonObject.getString("correctAnswer"));
                     break;
                 case "B":
-                    evaluation(answerTwo, question.getCorrectAnswer());
+                    evaluation(answerTwo, jsonObject.getString("correctAnswer"));
                     break;
                 case "C":
-                    evaluation(answerThree, question.getCorrectAnswer());
+                    evaluation(answerThree, jsonObject.getString("correctAnswer"));
                     break;
                 case "D":
-                    evaluation(answerFour, question.getCorrectAnswer());
+                    evaluation(answerFour, jsonObject.getString("correctAnswer"));
                     break;
             }
-
-
-            questions.remove(randomValueQuestion);
+            jsonArray.remove(randomValueQuestion);
             counterQuestion++;
         }
 
