@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: blue;
+}
+
+button {
+    cursor: pointer;
+    width: 100px;
+    height: 25px;
+    margin: 10px;
+    background-color: lightskyblue;
+
+}
+.bild {
+    width: 150px;
+    height: 150px;
+}
+
+.frage{
+    color: lightskyblue;
+}
+
+.container-antworten{
+    background-color: lightskyblue;
+    padding: 20px;
+    width: 180px;
+}
+
+.headline {
+    font-size: 50px;
+    color: lightskyblue;
+}
+
+.outputA {
+    font-size: 20px;
+    color: black;
+}
+
+.outputB {
+    font-size: 20px;
+    color: black;
+}
+.outputC {
+    font-size: 20px;
+    color: black;
+}
+.outputD {
+    font-size: 20px;
+    color: black;
+}
+

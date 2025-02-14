@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="./index.css">
+    <script src="./index.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <h1 class="headline">Quiz</h1>
+    <img class="bild" src="WWMill.png">
+    <h2 class="frage">Frage:</h2> <div id="outputFrage"></div>
+
+    <div class="container-antworten">
+        <p>A:</p><div id="outputA"></div>
+
+        <p>B:</p><div id="outputB"></div>
+
+        <p>C:</p><div id="outputC"></div>
+
+        <p>D:</p><div id="outputD"></div>
+
+    </div>
+    <div class="action">
+        <button onclick="selectAnswer('A')">A</button>
+        <button onclick="selectAnswer('B')">B</button>
+        <br>
+        <button onclick="selectAnswer('C')">C</button>
+        <button onclick="selectAnswer('D')">D</button>
+    </div>
+    <div id="Loesung"></div>
+    <button id="nextQuestionButton" onclick="showNextQuestion()">Nächste Frage</button>
+</div>
+</body>
+</html>
