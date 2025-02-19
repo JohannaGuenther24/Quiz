@@ -9,12 +9,29 @@ async function loadAllQuestions() {
     return body;
 }
 
+async function getQuestionsByDifficulty(difficulty) {
+    const requestOptions = {
+        method: "GET",
+        redirect: "follow"
+    };
+
+    const response = await fetch("http://localhost:8080/Questions/Difficulty/"+difficulty, requestOptions);
+    const body = await response.json();
+    return body;
+}
+
 
 const QUESTIONS = [];
 let correctAnswer;
+let difficulty;
 
 async function start() {
-    const questions = await loadAllQuestions();
+    let questions = [];
+    if (difficulty > 0 && difficulty <= 3){
+        questions = await getQuestionsByDifficulty(difficulty)
+    } else if (difficulty === 0) {
+        questions = await loadAllQuestions();
+    }
     QUESTIONS.push(...questions);
     showNextQuestion();
     console.log("Started successfully");
@@ -33,12 +50,19 @@ function showNextQuestion(){
 
 function selectAnswer(answer) {
     if (answer === correctAnswer){
-        document.getElementById("Loesung").innerHTML = "Richtig!"
+        document.getElementById("loesung").innerHTML = "Richtig!"
     } else {
-        document.getElementById("Loesung").innerHTML = "Falsch!"
+        document.getElementById("loesung").innerHTML = "Falsch!"
     }
     document.getElementById("nextQuestionButton").disabled = false;
+
 }
 
-window.onload = start;
+function setDifficulty(id){
+    difficulty = id;
+    start()
+}
+
+
+
 

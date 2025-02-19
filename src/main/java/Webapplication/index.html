@@ -9,30 +9,54 @@
     <script src="./index.js" defer></script>
 </head>
 <body>
-<div class="container">
-    <h1 class="headline">Quiz</h1>
-    <img class="bild" src="WWMill.png">
-    <h2 class="frage">Frage:</h2> <div id="outputFrage"></div>
-
-    <div class="container-antworten">
-        <p>A:</p><div id="outputA"></div>
-
-        <p>B:</p><div id="outputB"></div>
-
-        <p>C:</p><div id="outputC"></div>
-
-        <p>D:</p><div id="outputD"></div>
-
-    </div>
-    <div class="action">
-        <button onclick="selectAnswer('A')">A</button>
-        <button onclick="selectAnswer('B')">B</button>
-        <br>
-        <button onclick="selectAnswer('C')">C</button>
-        <button onclick="selectAnswer('D')">D</button>
-    </div>
-    <div id="Loesung"></div>
-    <button id="nextQuestionButton" onclick="showNextQuestion()">Nächste Frage</button>
+<p class ="Aufforderung">Wähle einen Schwierigkeitsgrad.</p>
+<div class = "difficultyButton-Container">
+    <button class ="difficultyButton" onclick="setDifficulty(1)">Leicht</button>
+    <button class ="difficultyButton" onclick="setDifficulty(2)">Mittel</button>
+    <button class ="difficultyButton" onclick="setDifficulty(3)">Schwer</button>
+    <button class ="difficultyButton" onclick="setDifficulty(0)">Gemischt</button>
 </div>
+
+<div id="warnung"></div>
+
+<div class="headline-container">
+    <h1>Quiz</h1>
+</div>
+
+<div class="question-container">
+    <h2 class="frage">Frage:</h2>
+    <div id="outputFrage"></div>
+</div>
+
+<div class="container-antworten">
+    <div class="antwort">
+        <p>A:</p>
+        <div id="outputA"></div>
+    </div>
+    <div class="antwort">
+        <p>B:</p>
+        <div id="outputB"></div>
+    </div>
+    <div class="antwort">
+        <p>C:</p>
+        <div id="outputC"></div>
+    </div>
+    <div class="antwort">
+        <p>D:</p>
+        <div id="outputD"></div>
+    </div>
+</div>
+
+<div class="action">
+    <button class ="ButtonA" onclick="selectAnswer('A')">A</button>
+    <button class ="ButtonB" onclick="selectAnswer('B')">B</button>
+    <br>
+    <button class ="ButtonC" onclick="selectAnswer('C')">C</button>
+    <button class ="ButtonD" onclick="selectAnswer('D')">D</button>
+</div>
+
+<p class ="loesung" id="loesung"></p>
+
+<button id="nextQuestionButton" onclick="showNextQuestion()">Nächste Frage</button>
 </body>
 </html>

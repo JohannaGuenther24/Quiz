@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/Questions")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class QuestionService {
 
     QuestionService() {
